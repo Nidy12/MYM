@@ -11,15 +11,15 @@ const Navbar = (props: Props) => {
   const [selected, setSelected] = useState("dashboard");
   return (
     <FlexBetween mb="0.25rem" p="0.5rem 0rem" color={palette.grey[300]}>
-      {/* LEFT SIDE */}
+      
       <FlexBetween gap="0.75rem">
         <PixIcon sx={{ fontSize: "28px" }} />
         <Typography variant="h4" fontSize="16px">
-          Finanseer
+          MYM
         </Typography>
       </FlexBetween>
 
-      {/* RIGHT SIDE */}
+      
       <FlexBetween gap="2rem">
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
           <Link
@@ -30,7 +30,7 @@ const Navbar = (props: Props) => {
               textDecoration: "inherit",
             }}
           >
-            dashboard
+            Dashboard
           </Link>
         </Box>
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
@@ -42,7 +42,7 @@ const Navbar = (props: Props) => {
               textDecoration: "inherit",
             }}
           >
-            predictions
+            Predictions
           </Link>
         </Box>
       </FlexBetween>
