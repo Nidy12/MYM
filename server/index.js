@@ -14,30 +14,22 @@ import Product from "./models/Product.js";
 import Transaction from "./models/Transaction.js";
 import { kpis } from "./data/data.js";
 
-/* ROUTES */
-app.use("/kpi", kpiRoutes);
-app.use("/product", productRoutes);
-app.use("/transaction", transactionRoutes);
 
-// mongoose
-//   .connect('mongodb+srv://nidhipoojary1211:Harekrishna01*@cluster0.kft3amf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-mongoose.connect('mongodb+srv://nidhipoojary1211:nidhi1234@devopia.guhrqwt.mongodb.net/dev?retryWrites=true&w=majority&appName=devopia')
-  .then(async () => {
-    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
-    // KPI.insertMany(kpis);
-  })
-  .catch((error) => console.error("MongoDB connection error:", error));
 
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+/* ROUTES */
+
+app.use("/product", productRoutes);
+app.use("/transaction", transactionRoutes);
 
 
 app.use('/kpi', kpiRoutes);
@@ -47,3 +39,11 @@ console.log("Server starting...");
 
 
 const PORT = process.env.PORT || 9000;
+
+
+mongoose.connect('mongodb+srv://nidhipoojary1211:nidhi1234@devopia.guhrqwt.mongodb.net/')
+  .then(async () => {
+    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+    // KPI.insertMany(kpis);
+  })
+  .catch((error) => console.error("MongoDB connection error:", error));

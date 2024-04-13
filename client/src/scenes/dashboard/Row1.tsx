@@ -64,7 +64,7 @@ const Row1 = () => {
     <>
       <DashboardBox gridArea="a">
         <BoxHeader
-          title="Revenue and Expenses"
+          title="Charges and Expenses"
           subtitle="top line represents revenue, bottom line represents expenses"
           sideText="+4%"
         />
@@ -139,7 +139,7 @@ const Row1 = () => {
       </DashboardBox>
       <DashboardBox gridArea="b">
         <BoxHeader
-          title="Profit and Revenue"
+          title="Statement"
           subtitle="top line represents revenue, bottom line represents expenses"
           sideText="+4%"
         />
@@ -184,15 +184,15 @@ const Row1 = () => {
             <Line
               yAxisId="left"
               type="monotone"
-              dataKey="profit"
+              dataKey="Balance"
               stroke={palette.tertiary[500]}
             />
-            <Line
+            {/* <Line
               yAxisId="right"
               type="monotone"
               dataKey="revenue"
               stroke={palette.primary.main}
-            />
+            /> */}
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
