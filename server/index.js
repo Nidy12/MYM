@@ -1,3 +1,4 @@
+
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -5,18 +6,25 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-import kpiRoutes from './routes/kpi.js';
+import kpiRoutes from "./routes/kpi.js";
+import productRoutes from "./routes/product.js";
+import transactionRoutes from "./routes/transaction.js";
 import KPI from "./models/KPI.js";
-import {kpis} from "./data/data.js";
-// import Kpi from "./data/data2.js";
+import Product from "./models/Product.js";
+import Transaction from "./models/Transaction.js";
+import { kpis } from "./data/data.js";
 
+/* ROUTES */
+app.use("/kpi", kpiRoutes);
+app.use("/product", productRoutes);
+app.use("/transaction", transactionRoutes);
 
 // mongoose
 //   .connect('mongodb+srv://nidhipoojary1211:Harekrishna01*@cluster0.kft3amf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 mongoose.connect('mongodb+srv://nidhipoojary1211:nidhi1234@devopia.guhrqwt.mongodb.net/dev?retryWrites=true&w=majority&appName=devopia')
   .then(async () => {
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
-    KPI.insertMany(kpis);
+    // KPI.insertMany(kpis);
   })
   .catch((error) => console.error("MongoDB connection error:", error));
 
