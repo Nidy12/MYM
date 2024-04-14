@@ -18,9 +18,11 @@ import {
   Area,
 } from "recharts";
 
+import {kpis} from "../../data/data"
+
 const Row1 = () => {
   const { palette } = useTheme();
-  const { data } = useGetKpisQuery();
+  const data = kpis;
 
   const revenue = useMemo(() => {
     return (
@@ -64,8 +66,8 @@ const Row1 = () => {
     <>
       <DashboardBox gridArea="a">
         <BoxHeader
-          title="Charges and Expenses"
-          subtitle="top line represents revenue, bottom line represents expenses"
+          title="Charges and expenses"
+          subtitle="Represents amount of charges"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
@@ -84,7 +86,7 @@ const Row1 = () => {
               <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor={palette.primary[300]}
+                  stopColor={palette.primary[900]}
                   stopOpacity={0.5}
                 />
                 <stop
@@ -96,12 +98,12 @@ const Row1 = () => {
               <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor={palette.primary[300]}
+                  stopColor={palette.secondary[900]}
                   stopOpacity={0.5}
                 />
                 <stop
                   offset="95%"
-                  stopColor={palette.primary[300]}
+                  stopColor={palette.secondary[300]}
                   stopOpacity={0}
                 />
               </linearGradient>
@@ -130,7 +132,7 @@ const Row1 = () => {
               type="monotone"
               dataKey="expenses"
               dot={true}
-              stroke={palette.primary.main}
+              stroke={palette.secondary.main}
               fillOpacity={1}
               fill="url(#colorExpenses)"
             />
@@ -140,7 +142,7 @@ const Row1 = () => {
       <DashboardBox gridArea="b">
         <BoxHeader
           title="Statement"
-          subtitle="top line represents revenue, bottom line represents expenses"
+          subtitle="Represents ledger balance"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
@@ -187,19 +189,19 @@ const Row1 = () => {
               dataKey="Balance"
               stroke={palette.tertiary[500]}
             />
-            {/* <Line
+            <Line
               yAxisId="right"
               type="monotone"
               dataKey="revenue"
               stroke={palette.primary.main}
-            /> */}
+            />
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
       <DashboardBox gridArea="c">
         <BoxHeader
-          title="Revenue Month by Month"
-          subtitle="graph representing the revenue month by month"
+          title="Profit/Loss"
+          subtitle="Represents profit/loss"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">

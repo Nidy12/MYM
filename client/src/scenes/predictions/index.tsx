@@ -15,11 +15,12 @@ import {
   YAxis,
 } from "recharts";
 import regression, { DataPoint } from "regression";
+import {kpis} from "../../data/data";
 
 const Predictions = () => {
   const { palette } = useTheme();
   const [isPredictions, setIsPredictions] = useState(false);
-  const { data: kpiData } = useGetKpisQuery();
+  const kpiData = kpis;
 
   const formattedData = useMemo(() => {
     if (!kpiData) return [];

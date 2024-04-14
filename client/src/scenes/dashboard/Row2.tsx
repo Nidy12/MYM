@@ -20,16 +20,19 @@ import {
   ZAxis,
 } from "recharts";
 
+import {kpis} from "../../data/data"
+const data1 = kpis
+
 const pieData = [
   { name: "Group A", value: 600 },
   { name: "Group B", value: 400 },
 ];
 
 const Row2 = () => {
-  const { palette } = useTheme();
-  const pieColors = [palette.primary[800], palette.primary[300]];
-  const { data: operationalData } = useGetKpisQuery();
-  const { data: productData } = useGetProductsQuery();
+    const { palette } = useTheme();
+    const pieColors = [palette.primary[800], palette.primary[300]];
+    const operationalData = kpis; // Use imported kpis data directly
+    const { data: productData } = useGetProductsQuery();
 
   const operationalExpenses = useMemo(() => {
     return (
@@ -63,7 +66,7 @@ const Row2 = () => {
     <>
       <DashboardBox gridArea="d">
         <BoxHeader
-          title="Operational vs Non-Operational Expenses"
+          title="Taxes"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
@@ -100,7 +103,7 @@ const Row2 = () => {
             <Line
               yAxisId="left"
               type="monotone"
-              dataKey="Non Operational Expenses"
+              dataKey="Tax paid"
               stroke={palette.tertiary[500]}
             />
             <Line
@@ -113,7 +116,7 @@ const Row2 = () => {
         </ResponsiveContainer>
       </DashboardBox>
       <DashboardBox gridArea="e">
-        <BoxHeader title="Campaigns and Targets" sideText="+4%" />
+        <BoxHeader title="Total profitable days" sideText="+4%" />
         <FlexBetween mt="0.25rem" gap="1.5rem" pr="1rem">
           <PieChart
             width={110}
@@ -139,13 +142,13 @@ const Row2 = () => {
             </Pie>
           </PieChart>
           <Box ml="-0.7rem" flexBasis="40%" textAlign="center">
-            <Typography variant="h5">Target Sales</Typography>
+            <Typography variant="h5">Total days</Typography>
             <Typography m="0.3rem 0" variant="h3" color={palette.primary[300]}>
-              83
+              30
             </Typography>
-            <Typography variant="h6">
+            {/* <Typography variant="h6">
               Finance goals of the campaign that is desired
-            </Typography>
+            </Typography> */}
           </Box>
           <Box flexBasis="40%">
             <Typography variant="h5">Losses in Revenue</Typography>
@@ -160,7 +163,7 @@ const Row2 = () => {
         </FlexBetween>
       </DashboardBox>
       <DashboardBox gridArea="f">
-        <BoxHeader title="Product Prices vs Expenses" sideText="+4%" />
+        <BoxHeader title="Investment amount vs days" sideText="+4%" />
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart
             margin={{

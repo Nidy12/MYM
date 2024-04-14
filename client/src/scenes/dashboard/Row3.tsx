@@ -42,12 +42,12 @@ const Row3 = () => {
   const productColumns = [
     {
       field: "_id",
-      headerName: "id",
+      headerName: "Investment Type",
       flex: 1,
     },
     {
       field: "expense",
-      headerName: "Expense",
+      headerName: "Amount",
       flex: 0.5,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
@@ -62,23 +62,23 @@ const Row3 = () => {
   const transactionColumns = [
     {
       field: "_id",
-      headerName: "id",
+      headerName: "Investment Type",
       flex: 1,
     },
     {
       field: "buyer",
-      headerName: "Buyer",
+      headerName: "Date",
       flex: 0.67,
     },
     {
       field: "amount",
-      headerName: "Amount",
+      headerName: "Price",
       flex: 0.35,
       renderCell: (params: GridCellParams) => `$${params.value}`,
     },
     {
       field: "productIds",
-      headerName: "Count",
+      headerName: "Amount",
       flex: 0.1,
       renderCell: (params: GridCellParams) =>
         (params.value as Array<string>).length,
@@ -89,7 +89,7 @@ const Row3 = () => {
     <>
       <DashboardBox gridArea="g">
         <BoxHeader
-          title="List of Products"
+          title="List of Investments"
           sideText={`${productData?.length} products`}
         />
         <Box
@@ -156,7 +156,7 @@ const Row3 = () => {
         </Box>
       </DashboardBox>
       <DashboardBox gridArea="i">
-        <BoxHeader title="Expense Breakdown By Category" sideText="+4%" />
+        <BoxHeader title="Investment breakdown" sideText="+4%" />
         <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
@@ -181,7 +181,7 @@ const Row3 = () => {
       </DashboardBox>
       <DashboardBox gridArea="j">
         <BoxHeader
-          title="Overall Summary and Explanation Data"
+          title="Portofilio score"
           sideText="+15%"
         />
         <Box
@@ -198,10 +198,7 @@ const Row3 = () => {
           ></Box>
         </Box>
         <Typography margin="0 1rem" variant="h6">
-          Orci aliquam enim vel diam. Venenatis euismod id donec mus lorem etiam
-          ullamcorper odio sed. Ipsum non sed gravida etiam urna egestas
-          molestie volutpat et. Malesuada quis pretium aliquet lacinia ornare
-          sed. In volutpat nullam at est id cum pulvinar nunc.
+          Overall summary of your investments.
         </Typography>
       </DashboardBox>
     </>
