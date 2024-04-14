@@ -1,21 +1,15 @@
-import DashboardBox from "../../components/DashboardBox";
-import FlexBetween from "../..//components/FlexBetween";
-import { useGetKpisQuery } from "../../state/api";
-import { Box, Button, Typography, useTheme } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import {
-  CartesianGrid,
-  Label,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import regression, { DataPoint } from "regression";
-import {kpis} from "../../data/data";
+  Box,
+  Button,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { CartesianGrid, Label, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import regression from "regression";
+import DashboardBox from "../../components/DashboardBox";
+import FlexBetween from "../../components/FlexBetween";
+import { kpis } from "../../data/data";
 
 const Predictions = () => {
   const { palette } = useTheme();
@@ -26,17 +20,19 @@ const Predictions = () => {
     if (!kpiData) return [];
     const monthData = kpiData[0].monthlyData;
 
-    const formatted: Array<DataPoint> = monthData.map(
-      ({ revenue }, i: number) => {
-        return [i, revenue];
-      }
-    );
+    // Format the data for regression
+    const formatted: Array<[number, number]> = monthData.map(({ revenue }, i: number) => {
+      return [i, parseFloat(revenue.replace("$", "").replace(",", ""))];
+    });
+
+    // Calculate regression
     const regressionLine = regression.linear(formatted);
 
+    // Generate data points for the chart
     return monthData.map(({ month, revenue }, i: number) => {
       return {
         name: month,
-        "Actual Revenue": revenue,
+        "Actual Revenue": parseFloat(revenue.replace("$", "").replace(",", "")),
         "Regression Line": regressionLine.points[i][1],
         "Predicted Revenue": regressionLine.predict(i + 12)[1],
       };
@@ -49,8 +45,7 @@ const Predictions = () => {
         <Box>
           <Typography variant="h3">Revenue and Predictions</Typography>
           <Typography variant="h6">
-            charted revenue and predicted revenue based on a simple linear
-            regression model
+            Charted revenue and predicted revenue based on a simple linear regression model
           </Typography>
         </Box>
         <Button
@@ -61,25 +56,19 @@ const Predictions = () => {
             boxShadow: "0.1rem 0.1rem 0.1rem 0.1rem rgba(0,0,0,.4)",
           }}
         >
-          Show Predicted Revenue for Next Year
+          {isPredictions ? "Hide Predicted Revenue for Next Year" : "Show Predicted Revenue for Next Year"}
         </Button>
       </FlexBetween>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={formattedData}
-          margin={{
-            top: 20,
-            right: 75,
-            left: 20,
-            bottom: 80,
-          }}
+          margin={{ top: 20, right: 75, left: 20, bottom: 80 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke={palette.grey[800]} />
           <XAxis dataKey="name" tickLine={false} style={{ fontSize: "10px" }}>
             <Label value="Month" offset={-5} position="insideBottom" />
           </XAxis>
           <YAxis
-            domain={[12000, 26000]}
             axisLine={{ strokeWidth: "0" }}
             style={{ fontSize: "10px" }}
             tickFormatter={(v) => `$${v}`}
